@@ -25,17 +25,17 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Restore
-        run: dotnet restore ./src/BasicNuGetPackage/BasicNuGetPackage.csproj
+        run: dotnet restore ./src/Eduq.Helpers/Eduq.Helpers.csproj
 
       - name: Build
-        run: dotnet build ./src/BasicNuGetPackage/BasicNuGetPackage.csproj -c Release --no-restore
+        run: dotnet build ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release --no-restore
 
       - name: Pack
         run: |
           if [ -n "${{ inputs.version }}" ]; then
-            dotnet pack ./src/BasicNuGetPackage/BasicNuGetPackage.csproj -c Release --no-build -o ./artifacts /p:PackageVersion=${{ inputs.version }}
+            dotnet pack ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release --no-build -o ./artifacts /p:PackageVersion=${{ inputs.version }}
           else
-            dotnet pack ./src/BasicNuGetPackage/BasicNuGetPackage.csproj -c Release --no-build -o ./artifacts
+            dotnet pack ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release --no-build -o ./artifacts
           fi
 
       - name: Upload package artifact
