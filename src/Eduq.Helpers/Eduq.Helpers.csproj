@@ -1,9 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <LangVersion>latest</LangVersion>
 
     <AssemblyName>Eduq.Helpers</AssemblyName>
     <RootNamespace>Eduq.Helpers</RootNamespace>
@@ -18,7 +20,6 @@
     <Description>Eduq helpers</Description>
     <PackageTags>datetime;time;utilities</PackageTags>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl></RepositoryUrl>
 
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
