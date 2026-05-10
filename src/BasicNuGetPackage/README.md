@@ -1,3 +1,0 @@
-# Eduq.Helpers
-
-Eduq Helpers
