@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
@@ -22,13 +22,13 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: "8.0.x"
+          dotnet-version: "2.2.207"
 
       - name: Restore
         run: dotnet restore ./src/Eduq.Helpers/Eduq.Helpers.csproj
 
-      - name: Build
-        run: dotnet build ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release --no-restore
+      - name: Build (netcoreapp2.2)
+        run: dotnet build ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release -f netcoreapp2.2 --no-restore
 
       - name: Pack
         run: |
