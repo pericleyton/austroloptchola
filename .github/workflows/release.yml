@@ -1,0 +1,56 @@
+name: build-and-release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Optional version string (e.g. 1.2.3). If set, a GitHub Release 'v<version>' will be created and the package will be built with that version."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        run: dotnet restore ./src/BasicNuGetPackage/BasicNuGetPackage.csproj
+
+      - name: Build
+        run: dotnet build ./src/BasicNuGetPackage/BasicNuGetPackage.csproj -c Release --no-restore
+
+      - name: Pack
+        run: |
+          if [ -n "${{ inputs.version }}" ]; then
+            dotnet pack ./src/BasicNuGetPackage/BasicNuGetPackage.csproj -c Release --no-build -o ./artifacts /p:PackageVersion=${{ inputs.version }}
+          else
+            dotnet pack ./src/BasicNuGetPackage/BasicNuGetPackage.csproj -c Release --no-build -o ./artifacts
+          fi
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: ./artifacts/*.nupkg
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        if: inputs.version != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          name: v${{ inputs.version }}
+          files: |
+            artifacts/*.nupkg
+          generate_release_notes: true
