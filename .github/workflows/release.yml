@@ -33,9 +33,9 @@ jobs:
       - name: Pack
         run: |
           if [ -n "${{ inputs.version }}" ]; then
-            dotnet pack ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release --no-build -o ./artifacts /p:PackageVersion=${{ inputs.version }}
+            dotnet pack ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release -o ./artifacts /p:PackageVersion=${{ inputs.version }} -p:ProduceReferenceAssembly=true -p:IncludeRefAssemblies=true
           else
-            dotnet pack ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release --no-build -o ./artifacts
+            dotnet pack ./src/Eduq.Helpers/Eduq.Helpers.csproj -c Release -o ./artifacts -p:ProduceReferenceAssembly=true -p:IncludeRefAssemblies=true
           fi
 
       - name: Upload package artifact
