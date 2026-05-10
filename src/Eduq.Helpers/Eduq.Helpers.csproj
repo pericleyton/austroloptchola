@@ -32,8 +32,16 @@
     <None Include="README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
+  <ItemGroup Condition="Exists('$(IntermediateOutputPath)ref\\$(AssemblyName).dll')">
+    <None Include="$(IntermediateOutputPath)ref\$(AssemblyName).dll" Pack="true" PackagePath="ref/$(TargetFramework)/" Visible="false" />
+  </ItemGroup>
+
   <ItemGroup Condition="Exists('$(IntermediateOutputPath)ref\\$(TargetFramework)\\$(AssemblyName).dll')">
-    <None Include="$(IntermediateOutputPath)ref\\$(TargetFramework)\\$(AssemblyName).dll" Pack="true" PackagePath="ref\\$(TargetFramework)\\" Visible="false" />
+    <None Include="$(IntermediateOutputPath)ref\$(TargetFramework)\$(AssemblyName).dll" Pack="true" PackagePath="ref/$(TargetFramework)/" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('$(BaseIntermediateOutputPath)$(Configuration)\\$(TargetFramework)\\ref\\$(AssemblyName).dll')">
+    <None Include="$(BaseIntermediateOutputPath)$(Configuration)\$(TargetFramework)\ref\$(AssemblyName).dll" Pack="true" PackagePath="ref/$(TargetFramework)/" Visible="false" />
   </ItemGroup>
 
 </Project>
